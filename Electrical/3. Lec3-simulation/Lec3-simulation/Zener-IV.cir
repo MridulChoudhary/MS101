@@ -1,0 +1,17 @@
+*Zener diode I-V
+*Unregulated input voltage. We shall sweep it from +5V to -0.8V.
+Vin Zplus Gnd 0 
+*Zener diode with a break down voltage of 4.7 V. Anode to ground.
+*Because Anode is connected to ground, -ve voltages are forward bias.
+DZ  Gnd Zplus DF
+.MODEL DF D (IS=6.22n N=1.9224 RS=0.336 CJ0=764f VJ=0.75 BV=4.7 TT=2.88n)
+*DC analysis: Sweep the voltage from breakdown to forward bias
+.DC Vin 5.0 -0.8 -0.01 
+
+.control
+run
+plot V(Zcathode)
+plot -I(Vin)
+.endc
+.end
+

@@ -1,0 +1,17 @@
+*Diode Rectifier
+*For 12V RMS, peak value is 12*1.414 = 16.97V
+Vin TxTop 0 sin(0 16.97 50 0 0)
+D1 TxTop Out DF
+.MODEL DF D (IS=6.22n N=1.9224 RS=0.336 CJ0=764f VJ=0.75 BV=200 TT=2.88n)
+RL Out 0 1k
+C  Out 0 100u
+*Transient Analysis
+.tran 100u 80m 20m
+
+.control
+run
+plot V(TxTop) V(Out)
+plot -I(Vin)
+.endc
+.end
+

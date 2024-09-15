@@ -1,0 +1,25 @@
+*Zener Regulator
+Vin Supply Gnd 9V
+*Series limiter
+RS Supply Zplus 300
+*Zener modeled as a diode with low breakdown voltage of 4.7V
+D1 Ztest Zplus DF
+.MODEL DF D (IS=6.22n N=1.9224 RS=0.336 CJ0=764f VJ=0.75 BV=4.7 TT=2.88n)
+*0V source inserted to measure Zener current
+VZtest Ztest Gnd 0
+*Load resistor. We shall sweep is from 1K to 10K to see load regulation
+RL Zplus Rtest 1000
+*0V source inserted to measure current through the load resistor
+VRtest Rtest Gnd 0
+*DC analysis
+*Sweep Load resistor values
+.DC RL 1K 10K 100
+.control
+run
+plot V(Zplus) ylimit 0 5.5
+plot -I(Vin) ylimit 0 15m
+plot I(VZtest)
+plot I(VRtest)
+.endc
+.end
+
